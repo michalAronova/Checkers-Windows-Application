@@ -47,11 +47,13 @@ namespace CheckersForms
             if((sender as CheckBox).Checked)
             {
                 textBoxPlayer2Name.Enabled = true;
+                textBoxPlayer2Name.Text = null;
                 buttonDone.Enabled = false;
             }
             else
             {
                 textBoxPlayer2Name.Enabled = false;
+                textBoxPlayer2Name.Text = "[Computer]";
             }
         }
 
@@ -63,6 +65,18 @@ namespace CheckersForms
         private void textBoxPlayer2Name_TextChanged(object sender, EventArgs e)
         {
             buttonDone.Enabled = !string.IsNullOrEmpty(textBoxPlayer2Name.Text);
+        }
+
+        private void textBoxPlayer1Name_KeyPress(object sender, KeyPressEventArgs e) //refactor
+        {
+            if (Char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == '\b')
+            {
+                e.Handled = false;
+            }
+            else
+            {
+                e.Handled = true;
+            }
         }
     }
 }
