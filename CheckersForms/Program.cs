@@ -17,7 +17,8 @@ namespace CheckersForms
             Application.EnableVisualStyles();
             ///Application.SetCompatibleTextRenderingDefault(false);
             ///Application.Run(new FormGameSettings());
-           
+            EnglishCheckersUI UI = new EnglishCheckersUI();
+            UI.SetGame();
             ///make FormGameSettings
             ///show dialog of it
             ///if dialog result is ok meaning things were chosen

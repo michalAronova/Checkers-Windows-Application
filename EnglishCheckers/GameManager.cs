@@ -88,8 +88,6 @@ namespace EnglishCheckers
             return postMoveGameStatus;
         }
 
-
-
         private void performMove(Move i_InitiatedMove)
         {
             m_Board.MoveCoin(i_InitiatedMove.Source, i_InitiatedMove.Destination);

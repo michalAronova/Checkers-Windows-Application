@@ -29,6 +29,7 @@ namespace CheckersForms
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormGameSettings));
             this.radioButtonSize6 = new System.Windows.Forms.RadioButton();
             this.radioButtonSize8 = new System.Windows.Forms.RadioButton();
             this.radioButtonSize10 = new System.Windows.Forms.RadioButton();
@@ -46,10 +47,10 @@ namespace CheckersForms
             // 
             this.radioButtonSize6.AutoSize = true;
             this.radioButtonSize6.Checked = true;
-            this.radioButtonSize6.Location = new System.Drawing.Point(5, 20);
+            this.radioButtonSize6.Location = new System.Drawing.Point(6, 25);
             this.radioButtonSize6.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButtonSize6.Name = "radioButtonSize6";
-            this.radioButtonSize6.Size = new System.Drawing.Size(59, 21);
+            this.radioButtonSize6.Size = new System.Drawing.Size(67, 24);
             this.radioButtonSize6.TabIndex = 0;
             this.radioButtonSize6.TabStop = true;
             this.radioButtonSize6.Tag = "6";
@@ -60,10 +61,10 @@ namespace CheckersForms
             // radioButtonSize8
             // 
             this.radioButtonSize8.AutoSize = true;
-            this.radioButtonSize8.Location = new System.Drawing.Point(70, 20);
+            this.radioButtonSize8.Location = new System.Drawing.Point(79, 25);
             this.radioButtonSize8.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButtonSize8.Name = "radioButtonSize8";
-            this.radioButtonSize8.Size = new System.Drawing.Size(59, 21);
+            this.radioButtonSize8.Size = new System.Drawing.Size(67, 24);
             this.radioButtonSize8.TabIndex = 1;
             this.radioButtonSize8.Tag = "8";
             this.radioButtonSize8.Text = "8 x 8";
@@ -73,10 +74,10 @@ namespace CheckersForms
             // radioButtonSize10
             // 
             this.radioButtonSize10.AutoSize = true;
-            this.radioButtonSize10.Location = new System.Drawing.Point(135, 20);
+            this.radioButtonSize10.Location = new System.Drawing.Point(152, 25);
             this.radioButtonSize10.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.radioButtonSize10.Name = "radioButtonSize10";
-            this.radioButtonSize10.Size = new System.Drawing.Size(75, 21);
+            this.radioButtonSize10.Size = new System.Drawing.Size(85, 24);
             this.radioButtonSize10.TabIndex = 2;
             this.radioButtonSize10.Tag = "10";
             this.radioButtonSize10.Text = "10 x 10";
@@ -88,11 +89,11 @@ namespace CheckersForms
             this.groupBoxSizeChoice.Controls.Add(this.radioButtonSize6);
             this.groupBoxSizeChoice.Controls.Add(this.radioButtonSize10);
             this.groupBoxSizeChoice.Controls.Add(this.radioButtonSize8);
-            this.groupBoxSizeChoice.Location = new System.Drawing.Point(32, 22);
+            this.groupBoxSizeChoice.Location = new System.Drawing.Point(36, 28);
             this.groupBoxSizeChoice.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.groupBoxSizeChoice.Name = "groupBoxSizeChoice";
             this.groupBoxSizeChoice.Padding = new System.Windows.Forms.Padding(3, 2, 3, 2);
-            this.groupBoxSizeChoice.Size = new System.Drawing.Size(213, 44);
+            this.groupBoxSizeChoice.Size = new System.Drawing.Size(240, 55);
             this.groupBoxSizeChoice.TabIndex = 3;
             this.groupBoxSizeChoice.TabStop = false;
             this.groupBoxSizeChoice.Text = "Choose Board Size:";
@@ -100,28 +101,28 @@ namespace CheckersForms
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(28, 82);
+            this.label1.Location = new System.Drawing.Point(32, 102);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(59, 17);
+            this.label1.Size = new System.Drawing.Size(64, 20);
             this.label1.TabIndex = 4;
             this.label1.Text = "Players:";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(52, 111);
+            this.label2.Location = new System.Drawing.Point(58, 139);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 17);
+            this.label2.Size = new System.Drawing.Size(69, 20);
             this.label2.TabIndex = 5;
             this.label2.Text = "Player 1:";
             // 
             // checkBoxPlayer2
             // 
             this.checkBoxPlayer2.AutoSize = true;
-            this.checkBoxPlayer2.Location = new System.Drawing.Point(32, 142);
+            this.checkBoxPlayer2.Location = new System.Drawing.Point(36, 178);
             this.checkBoxPlayer2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPlayer2.Name = "checkBoxPlayer2";
-            this.checkBoxPlayer2.Size = new System.Drawing.Size(86, 21);
+            this.checkBoxPlayer2.Size = new System.Drawing.Size(95, 24);
             this.checkBoxPlayer2.TabIndex = 1;
             this.checkBoxPlayer2.Text = "Player 2:";
             this.checkBoxPlayer2.UseVisualStyleBackColor = true;
@@ -129,20 +130,20 @@ namespace CheckersForms
             // 
             // textBoxPlayer1Name
             // 
-            this.textBoxPlayer1Name.Location = new System.Drawing.Point(119, 109);
+            this.textBoxPlayer1Name.Location = new System.Drawing.Point(134, 136);
             this.textBoxPlayer1Name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPlayer1Name.Name = "textBoxPlayer1Name";
-            this.textBoxPlayer1Name.Size = new System.Drawing.Size(187, 22);
+            this.textBoxPlayer1Name.Size = new System.Drawing.Size(210, 26);
             this.textBoxPlayer1Name.TabIndex = 0;
             this.textBoxPlayer1Name.TextChanged += new System.EventHandler(this.textBoxPlayerName_TextChanged);
             // 
             // textBoxPlayer2Name
             // 
             this.textBoxPlayer2Name.Enabled = false;
-            this.textBoxPlayer2Name.Location = new System.Drawing.Point(119, 140);
+            this.textBoxPlayer2Name.Location = new System.Drawing.Point(134, 175);
             this.textBoxPlayer2Name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPlayer2Name.Name = "textBoxPlayer2Name";
-            this.textBoxPlayer2Name.Size = new System.Drawing.Size(187, 22);
+            this.textBoxPlayer2Name.Size = new System.Drawing.Size(210, 26);
             this.textBoxPlayer2Name.TabIndex = 2;
             this.textBoxPlayer2Name.Text = "[Computer]";
             this.textBoxPlayer2Name.TextChanged += new System.EventHandler(this.textBoxPlayerName_TextChanged);
@@ -150,10 +151,10 @@ namespace CheckersForms
             // buttonDone
             // 
             this.buttonDone.Enabled = false;
-            this.buttonDone.Location = new System.Drawing.Point(239, 181);
+            this.buttonDone.Location = new System.Drawing.Point(269, 226);
             this.buttonDone.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.buttonDone.Name = "buttonDone";
-            this.buttonDone.Size = new System.Drawing.Size(67, 25);
+            this.buttonDone.Size = new System.Drawing.Size(75, 31);
             this.buttonDone.TabIndex = 3;
             this.buttonDone.Text = "Done";
             this.buttonDone.UseVisualStyleBackColor = true;
@@ -161,9 +162,9 @@ namespace CheckersForms
             // 
             // FormGameSettings
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(326, 220);
+            this.ClientSize = new System.Drawing.Size(367, 275);
             this.Controls.Add(this.buttonDone);
             this.Controls.Add(this.textBoxPlayer2Name);
             this.Controls.Add(this.checkBoxPlayer2);
@@ -173,6 +174,7 @@ namespace CheckersForms
             this.Controls.Add(this.groupBoxSizeChoice);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.HelpButton = true;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "FormGameSettings";
             this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;

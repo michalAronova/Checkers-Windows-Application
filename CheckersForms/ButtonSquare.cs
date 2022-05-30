@@ -1,16 +1,27 @@
 ﻿using System.ComponentModel;
+using System.Drawing;
 using System.Windows.Forms;
 using EnglishCheckers;
 
 namespace CheckersForms
 {
-    public partial class ButtonSquare : Button
+    public partial class ButtonSquare : CheckBox
     {
         private readonly Coordinate r_Coordinate;
-
+        private const int k_ButtonSquareSize = 30;
         public ButtonSquare(Coordinate i_Coordinate)
         {
             r_Coordinate = i_Coordinate;
+            this.Size = new Size(k_ButtonSquareSize, k_ButtonSquareSize);
+            this.Appearance = Appearance.Button;
+        }
+
+        public Coordinate Coordinate
+        {
+            get
+            {
+                return r_Coordinate;
+            }
         }
         
         public ButtonSquare()

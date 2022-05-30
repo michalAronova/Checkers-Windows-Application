@@ -41,6 +41,7 @@ namespace CheckersForms
         public FormGameSettings()
         {
             InitializeComponent();
+            BoardSize = 6;
         }
 
         private void buttonDone_Click(object sender, EventArgs e)
