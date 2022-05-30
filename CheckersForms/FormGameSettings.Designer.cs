@@ -122,7 +122,7 @@ namespace CheckersForms
             this.checkBoxPlayer2.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.checkBoxPlayer2.Name = "checkBoxPlayer2";
             this.checkBoxPlayer2.Size = new System.Drawing.Size(86, 21);
-            this.checkBoxPlayer2.TabIndex = 7;
+            this.checkBoxPlayer2.TabIndex = 1;
             this.checkBoxPlayer2.Text = "Player 2:";
             this.checkBoxPlayer2.UseVisualStyleBackColor = true;
             this.checkBoxPlayer2.CheckedChanged += new System.EventHandler(this.checkBoxPlayer2_CheckedChanged);
@@ -133,9 +133,8 @@ namespace CheckersForms
             this.textBoxPlayer1Name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPlayer1Name.Name = "textBoxPlayer1Name";
             this.textBoxPlayer1Name.Size = new System.Drawing.Size(187, 22);
-            this.textBoxPlayer1Name.TabIndex = 3;
-            this.textBoxPlayer1Name.TextChanged += new System.EventHandler(this.textBoxPlayer1Name_TextChanged);
-            this.textBoxPlayer1Name.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.textBoxPlayer1Name_KeyPress);
+            this.textBoxPlayer1Name.TabIndex = 0;
+            this.textBoxPlayer1Name.TextChanged += new System.EventHandler(this.textBoxPlayerName_TextChanged);
             // 
             // textBoxPlayer2Name
             // 
@@ -144,9 +143,9 @@ namespace CheckersForms
             this.textBoxPlayer2Name.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.textBoxPlayer2Name.Name = "textBoxPlayer2Name";
             this.textBoxPlayer2Name.Size = new System.Drawing.Size(187, 22);
-            this.textBoxPlayer2Name.TabIndex = 8;
+            this.textBoxPlayer2Name.TabIndex = 2;
             this.textBoxPlayer2Name.Text = "[Computer]";
-            this.textBoxPlayer2Name.TextChanged += new System.EventHandler(this.textBoxPlayer2Name_TextChanged);
+            this.textBoxPlayer2Name.TextChanged += new System.EventHandler(this.textBoxPlayerName_TextChanged);
             // 
             // buttonDone
             // 

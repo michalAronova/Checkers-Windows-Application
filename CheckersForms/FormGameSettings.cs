@@ -12,10 +12,32 @@ namespace CheckersForms
 {
     public partial class FormGameSettings : Form
     {
-        private int m_SizeChosen;
-        private string m_Player1Name;
-        private string m_Player2Name = "Computer";
-        private bool m_IsHumanOpponent = false;
+        public string Player1Name
+        {
+            get
+            {
+                return textBoxPlayer1Name.Text;
+            }
+        }
+
+        public int BoardSize { get; private set; }
+
+        public string Player2Name
+        {
+            get
+            {
+                return textBoxPlayer2Name.Text;
+            }
+        }
+
+        public bool IsTwoPlayerMode
+        {
+            get
+            {
+                return checkBoxPlayer2.Checked;
+            }
+        }
+
         public FormGameSettings()
         {
             InitializeComponent();
@@ -23,12 +45,7 @@ namespace CheckersForms
 
         private void buttonDone_Click(object sender, EventArgs e)
         {
-            m_Player1Name = textBoxPlayer1Name.Text;
-            if(checkBoxPlayer2.Checked)
-            {
-                m_Player2Name = textBoxPlayer2Name.Text;
-                m_IsHumanOpponent = true;
-            }
+            this.DialogResult = DialogResult.OK;
             this.Close();
         }
 
@@ -38,7 +55,7 @@ namespace CheckersForms
 
             if(radioButtonCheckedChanged.Checked)
             {
-                m_SizeChosen = int.Parse(radioButtonCheckedChanged.Tag.ToString());
+                BoardSize = int.Parse(radioButtonCheckedChanged.Tag.ToString());
             }
         }
 
@@ -57,26 +74,9 @@ namespace CheckersForms
             }
         }
 
-        private void textBoxPlayer1Name_TextChanged(object sender, EventArgs e)
+        private void textBoxPlayerName_TextChanged(object sender, EventArgs e)
         {
-            buttonDone.Enabled = !string.IsNullOrEmpty(textBoxPlayer1Name.Text);
-        }
-
-        private void textBoxPlayer2Name_TextChanged(object sender, EventArgs e)
-        {
-            buttonDone.Enabled = !string.IsNullOrEmpty(textBoxPlayer2Name.Text);
-        }
-
-        private void textBoxPlayer1Name_KeyPress(object sender, KeyPressEventArgs e) //refactor
-        {
-            if (Char.IsLetterOrDigit(e.KeyChar) || e.KeyChar == '\b')
-            {
-                e.Handled = false;
-            }
-            else
-            {
-                e.Handled = true;
-            }
+            buttonDone.Enabled = !string.IsNullOrEmpty((sender as TextBox).Text);
         }
     }
 }
