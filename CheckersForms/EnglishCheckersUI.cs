@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using EnglishCheckers;
 namespace CheckersForms
@@ -11,6 +8,13 @@ namespace CheckersForms
         private FormGame m_FormGame;
         private readonly FormGameSettings m_FormGameSettings = new FormGameSettings();
         private GameManager m_GameManger;
+        private Timer m_Timer = new Timer();
+
+        public EnglishCheckersUI()
+        {
+            m_Timer.Interval = 2000;
+            m_Timer.Tick += new EventHandler(m_Timer_Tick);
+        }
 
         public void SetGame()
         {
@@ -19,6 +23,12 @@ namespace CheckersForms
             {
                 runGame();
             }
+        }
+
+        private void m_Timer_Tick(object sender, EventArgs e)
+        {
+            handleComputerMove();
+            m_Timer.Stop();
         }
 
         private void runGame()
@@ -36,8 +46,7 @@ namespace CheckersForms
         private void FormGame_MoveChosen(Coordinate i_Source, Coordinate i_Destination)
         {
             eGameStatus gameStatusAfterMove = m_GameManger.InitiateMove(i_Source, i_Destination);
-            ///remember - handle computer move!
-            ///handleStatus(gameStatusAfterMove);
+            m_Timer.Start();
         }
 
         private void GameManager_MoveMade(Move i_MoveMade)
@@ -52,21 +61,21 @@ namespace CheckersForms
 
         private void GameManager_GameIsOver(eGameStatus i_Status)
         {
-            string winnerName;
-            string message;
+            string winnerName = null;
+            string message = null;
+
             if(i_Status != eGameStatus.Tie)
             {
                 winnerName = getWinnerName(i_Status);
-                message = winnerName + "wins!";
+                message = winnerName + " wins!";
             }
             else
             {
                 message = "It's a Tie!";
             }
+
             message += Environment.NewLine + "Another round?";
-
             DialogResult dialogResult = MessageBox.Show(message, "Game Over!", MessageBoxButtons.YesNo);
-
             if (dialogResult == DialogResult.Yes)
             {
                 m_GameManger.InitiateGame();
@@ -81,11 +90,16 @@ namespace CheckersForms
 
         private void updateFormGamePoints()
         {
-            m_FormGame.UpdatePointsByGame();
+            int player1Points = m_GameManger.NextPlayer.CoinType == eCoinType.Player1Coin ? m_GameManger.NextPlayer.Points : m_GameManger.ActivePlayer.Points;
+            int player2Points = m_GameManger.NextPlayer.CoinType == eCoinType.Player2Coin ? m_GameManger.NextPlayer.Points : m_GameManger.ActivePlayer.Points;
+
+            m_FormGame.UpdatePointsByGame(player1Points, player2Points);
         }
+
         private string getWinnerName(eGameStatus i_Status)
         {
-            string winnerName;
+            string winnerName = null;
+
             if(i_Status == eGameStatus.ActivePlayerWins)
             {
                 winnerName = m_GameManger.ActivePlayer.Name;
@@ -97,14 +111,14 @@ namespace CheckersForms
 
             return winnerName;
         }
-        private void handleStatus(eGameStatus i_GameStatus)
+        
+        private void handleComputerMove()
         {
             if (!m_GameManger.ActivePlayer.IsHumanPlayer)
             {
                 Coordinate source;
                 Coordinate destination;
-                i_GameStatus = m_GameManger.InitiateComputerMove(out source, out destination);
-                ///send this change to the form ??
+                m_GameManger.InitiateComputerMove(out source, out destination);
             }
         }
     }

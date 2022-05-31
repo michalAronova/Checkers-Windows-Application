@@ -119,10 +119,12 @@ namespace CheckersForms
             }
         }
 
-        public void UpdatePointsByGame()
+        public void UpdatePointsByGame(int i_Player1Points, int i_Player2Points)
         {
-
+            labelPlayer1Score.Text = i_Player1Points.ToString();
+            labelPlayer2Score.Text = i_Player2Points.ToString();
         }
+
         protected void OnMoveChosen(Coordinate i_Source, Coordinate i_Destination)
         {
             if(MoveChosen != null)
@@ -130,6 +132,5 @@ namespace CheckersForms
                 MoveChosen.Invoke(i_Source, i_Destination);
             }
         }
-
     }
 }

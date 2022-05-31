@@ -177,10 +177,10 @@ namespace EnglishCheckers
             Move smartMove = selectGoodMove();
 
             performMove(smartMove);
+            OnMoveMade(smartMove);
             postMoveGameStatus = checkForDoubleJumpAndHandleTurnTransfer(smartMove);
             o_SourceCoordinate = smartMove.Source;
             o_DestinationCoordinate = smartMove.Destination;
-            System.Threading.Thread.Sleep(3000); ////////////////////////////*******************////////////////
 
             return postMoveGameStatus;
         }
