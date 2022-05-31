@@ -12,6 +12,7 @@ namespace CheckersForms
         public ButtonSquare(Coordinate i_Coordinate)
         {
             r_Coordinate = i_Coordinate;
+            this.TextAlign = ContentAlignment.MiddleCenter;
             this.Size = new Size(k_ButtonSquareSize, k_ButtonSquareSize);
             this.Appearance = Appearance.Button;
         }

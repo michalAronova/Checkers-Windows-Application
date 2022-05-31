@@ -27,37 +27,78 @@ namespace CheckersForms
                                            m_FormGameSettings.Player1Name, m_FormGameSettings.Player2Name);
             m_FormGame = new FormGame(m_GameManger);
             m_FormGame.MoveChosen += new Action<Coordinate, Coordinate>(this.FormGame_MoveChosen);
+            m_GameManger.GameIsOver += new Action<eGameStatus>(this.GameManager_GameIsOver);
+            m_GameManger.InvalidMoveAttempted += new Action(this.GameManager_InvalidMoveAttempted);
+            m_GameManger.MoveMade += new Action<Move>(this.GameManager_MoveMade);
             m_FormGame.ShowDialog();
         }
 
         private void FormGame_MoveChosen(Coordinate i_Source, Coordinate i_Destination)
         {
             eGameStatus gameStatusAfterMove = m_GameManger.InitiateMove(i_Source, i_Destination);
-
-            handleStatus(gameStatusAfterMove);
-
+            ///remember - handle computer move!
+            ///handleStatus(gameStatusAfterMove);
         }
 
-        private void handleStatus(eGameStatus i_GameStatus)
+        private void GameManager_MoveMade(Move i_MoveMade)
         {
-            if (i_GameStatus == eGameStatus.InvalidMove)
+            m_FormGame.UpdateFormGameBoard(m_GameManger.GameBoard);
+        }
+
+        private void GameManager_InvalidMoveAttempted()
+        {
+            MessageBox.Show("Please Try Again...", "Invalid Move", MessageBoxButtons.OK);
+        }
+
+        private void GameManager_GameIsOver(eGameStatus i_Status)
+        {
+            string winnerName;
+            string message;
+            if(i_Status != eGameStatus.Tie)
             {
-                ///message and handle
+                winnerName = getWinnerName(i_Status);
+                message = winnerName + "wins!";
             }
             else
             {
-                ///visual change when valid move
+                message = "It's a Tie!";
             }
-            
-            if (i_GameStatus == eGameStatus.ActivePlayerWins)
+            message += Environment.NewLine + "Another round?";
+
+            DialogResult dialogResult = MessageBox.Show(message, "Game Over!", MessageBoxButtons.YesNo);
+
+            if (dialogResult == DialogResult.Yes)
             {
-                ///message and handle
+                m_GameManger.InitiateGame();
+                m_FormGame.UpdateFormGameBoard(m_GameManger.GameBoard);
+                updateFormGamePoints();
             }
-            else if (i_GameStatus == eGameStatus.Tie)
+            else if (dialogResult == DialogResult.No)
             {
-                ///message and handle
+                m_FormGame.Close();
+            }
+        }
+
+        private void updateFormGamePoints()
+        {
+            m_FormGame.UpdatePointsByGame();
+        }
+        private string getWinnerName(eGameStatus i_Status)
+        {
+            string winnerName;
+            if(i_Status == eGameStatus.ActivePlayerWins)
+            {
+                winnerName = m_GameManger.ActivePlayer.Name;
+            }
+            else
+            {
+                winnerName = m_GameManger.NextPlayer.Name;
             }
 
+            return winnerName;
+        }
+        private void handleStatus(eGameStatus i_GameStatus)
+        {
             if (!m_GameManger.ActivePlayer.IsHumanPlayer)
             {
                 Coordinate source;

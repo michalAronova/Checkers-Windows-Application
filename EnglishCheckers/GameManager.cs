@@ -10,7 +10,11 @@ namespace EnglishCheckers
         private Player m_NextPlayer;
         private Move m_LastMove;
         private bool m_NextMoveIsDoubleJump;
-        private readonly bool r_twoPlayersMode;
+        private readonly bool r_TwoPlayersMode;
+
+        public event Action<Move> MoveMade;
+        public event Action InvalidMoveAttempted;
+        public event Action<eGameStatus> GameIsOver;
 
         public GameManager(int i_BoardSize, bool i_IsHumanPlayer, string i_Player1Name, string i_Player2Name)
         {
@@ -21,7 +25,7 @@ namespace EnglishCheckers
             m_Board.GetCoordinateToCoinDictionaries(out player1Coins, out player2Coins);
             m_ActivePlayer = new Player(eDirection.Up, eCoinType.Player1Coin, player1Coins, i_Player1Name);
             m_NextPlayer = new Player(eDirection.Down, eCoinType.Player2Coin, player2Coins, i_Player2Name);
-            r_twoPlayersMode = i_IsHumanPlayer;
+            r_TwoPlayersMode = i_IsHumanPlayer;
             m_NextPlayer.IsHumanPlayer = i_IsHumanPlayer;
         }
 
@@ -53,7 +57,7 @@ namespace EnglishCheckers
         {
             get
             {
-                return r_twoPlayersMode;
+                return r_TwoPlayersMode;
             }
         }
 
@@ -78,11 +82,13 @@ namespace EnglishCheckers
             if(isValidMove) 
             {
                 performMove(initiatedMove);
+                OnMoveMade(initiatedMove);
                 postMoveGameStatus = checkForDoubleJumpAndHandleTurnTransfer(initiatedMove);
             }
             else
             {
                 postMoveGameStatus = eGameStatus.InvalidMove;
+                OnInvalidMoveAttempted();
             }
 
             return postMoveGameStatus;
@@ -119,8 +125,8 @@ namespace EnglishCheckers
                 {
                     postMoveGameStatus = eGameStatus.NextPlayerWins;
                 }
-
                 countAndSetPoints(postMoveGameStatus);
+                OnGameIsOver(postMoveGameStatus);
             }
             else
             {
@@ -174,7 +180,7 @@ namespace EnglishCheckers
             postMoveGameStatus = checkForDoubleJumpAndHandleTurnTransfer(smartMove);
             o_SourceCoordinate = smartMove.Source;
             o_DestinationCoordinate = smartMove.Destination;
-            System.Threading.Thread.Sleep(3000);
+            System.Threading.Thread.Sleep(3000); ////////////////////////////*******************////////////////
 
             return postMoveGameStatus;
         }
@@ -547,6 +553,29 @@ namespace EnglishCheckers
             m_Board.GetCoordinateToCoinDictionaries(out player1Coins, out player2Coins);
             ActivePlayer.PlayersCoins = player1Coins;
             NextPlayer.PlayersCoins = player2Coins;
+        }
+
+        protected virtual void OnMoveMade(Move i_MoveMade)
+        {
+            if(MoveMade != null)
+            {
+                MoveMade.Invoke(i_MoveMade);
+            }
+        }
+        protected virtual void OnInvalidMoveAttempted()
+        {
+            if (InvalidMoveAttempted != null)
+            {
+                InvalidMoveAttempted.Invoke();
+            }
+        }
+
+        protected virtual void OnGameIsOver(eGameStatus i_Status)
+        {
+            if(GameIsOver != null)
+            {
+                GameIsOver.Invoke(i_Status);
+            }
         }
     }
 }

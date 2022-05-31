@@ -17,6 +17,7 @@ namespace CheckersForms
         private const char k_Player1King = 'K';
         private const char k_Player2King = 'U';
         private ButtonSquare[,] m_ButtonSquaresBoard;
+        private readonly int r_BoardSize;
         private ButtonSquare m_buttonSquarePressed;
 
         public event Action<Coordinate, Coordinate> MoveChosen;
@@ -24,6 +25,7 @@ namespace CheckersForms
         public FormGame(GameManager i_GameManager)
         {
             InitializeComponent();
+            r_BoardSize = i_GameManager.GameBoard.Size;
             initBoard(i_GameManager.GameBoard);
             this.ClientSize = calcClientSize();
             initNames(i_GameManager.ActivePlayer.Name, i_GameManager.NextPlayer.Name);
@@ -36,39 +38,59 @@ namespace CheckersForms
         }
         private Size calcClientSize()
         {
-            int height = groupBox1.Height +  (m_ButtonSquaresBoard[0,0].Height * m_ButtonSquaresBoard.GetLength(0));
-            int width = m_ButtonSquaresBoard[0, 0].Width * m_ButtonSquaresBoard.GetLength(0);
+            int height = groupBox1.Height +  (m_ButtonSquaresBoard[0,0].Height * r_BoardSize);
+            int width = m_ButtonSquaresBoard[0, 0].Width * r_BoardSize;
             return new Size(width + 6, height + 6);
         }
 
         private void initBoard(Board i_GameBoard)
         {
-            int boardSize = i_GameBoard.Size;
-            m_ButtonSquaresBoard = new ButtonSquare[boardSize, boardSize];
-            for(int i = 0; i < boardSize; i++)
+            m_ButtonSquaresBoard = new ButtonSquare[r_BoardSize, r_BoardSize];
+            for(int i = 0; i < r_BoardSize; i++)
             {
-                for (int j = 0; j < boardSize; j++)
+                for (int j = 0; j < r_BoardSize; j++)
                 {
                     m_ButtonSquaresBoard[i,j] = new ButtonSquare(new Coordinate(i, j));
-                    Square currentSquare = i_GameBoard.GetSquare(new Coordinate(i, j));
+                    m_ButtonSquaresBoard[i, j].CheckedChanged += new EventHandler(this.buttonSquare_CheckedChanged);
+                    m_ButtonSquaresBoard[i, j].Left = this.Left + (j * m_ButtonSquaresBoard[i, j].Width) + 3;
+                    m_ButtonSquaresBoard[i, j].Top = groupBox1.Bottom + (i * m_ButtonSquaresBoard[i, j].Height) + 3;
+                    this.Controls.Add(m_ButtonSquaresBoard[i,j]);
+                }
+            }
+            UpdateFormGameBoard(i_GameBoard);
+        }
 
+        public void UpdateFormGameBoard(Board i_GameBoard)
+        {
+            for(int i = 0; i < r_BoardSize; i++)
+            {
+                for(int j = 0; j < r_BoardSize; j++)
+                {
+                    Square currentSquare = i_GameBoard.GetSquare(new Coordinate(i, j));
                     if (currentSquare.Coin == null)
                     {
-                        if((i + j) % 2 == 0)
+                        m_ButtonSquaresBoard[i, j].Text = String.Empty;
+                        
+                        if ((i + j) % 2 == 0)
                         {
                             m_ButtonSquaresBoard[i, j].Enabled = false;
                         }
                     }
                     else
                     {
-                        m_ButtonSquaresBoard[i, j].Text = (currentSquare.Coin.Type == eCoinType.Player1Coin)
-                                                        ? k_Player1Coin.ToString()
-                                                        : k_Player2Coin.ToString();
+                        if(currentSquare.Coin.IsKing)
+                        {
+                            m_ButtonSquaresBoard[i, j].Text = (currentSquare.Coin.Type == eCoinType.Player1Coin)
+                                                                  ? k_Player1King.ToString()
+                                                                  : k_Player2King.ToString();
+                        }
+                        else
+                        {
+                            m_ButtonSquaresBoard[i, j].Text = (currentSquare.Coin.Type == eCoinType.Player1Coin)
+                                                                  ? k_Player1Coin.ToString()
+                                                                  : k_Player2Coin.ToString();
+                        }
                     }
-                    m_ButtonSquaresBoard[i, j].CheckedChanged += new EventHandler(this.buttonSquare_CheckedChanged);
-                    m_ButtonSquaresBoard[i, j].Left = this.Left + (j * m_ButtonSquaresBoard[i, j].Width) + 3;
-                    m_ButtonSquaresBoard[i, j].Top = groupBox1.Bottom + (i * m_ButtonSquaresBoard[i, j].Height) + 3;
-                    this.Controls.Add(m_ButtonSquaresBoard[i,j]);
                 }
             }
         }
@@ -90,16 +112,24 @@ namespace CheckersForms
                     Coordinate source = m_buttonSquarePressed.Coordinate;
                     Coordinate destination = (sender as ButtonSquare).Coordinate;
                     OnMoveChosen(source, destination);
+                    m_buttonSquarePressed.Checked = false;
+                    (sender as ButtonSquare).Checked = false;
+                    m_buttonSquarePressed = null;
                 }
             }
         }
 
-        private void OnMoveChosen(Coordinate i_Source, Coordinate i_Destination)
+        public void UpdatePointsByGame()
+        {
+
+        }
+        protected void OnMoveChosen(Coordinate i_Source, Coordinate i_Destination)
         {
             if(MoveChosen != null)
             {
                 MoveChosen.Invoke(i_Source, i_Destination);
             }
         }
+
     }
 }
