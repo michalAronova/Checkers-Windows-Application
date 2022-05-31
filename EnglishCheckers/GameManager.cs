@@ -82,7 +82,6 @@ namespace EnglishCheckers
             if(isValidMove) 
             {
                 performMove(initiatedMove);
-                OnMoveMade(initiatedMove);
                 postMoveGameStatus = checkForDoubleJumpAndHandleTurnTransfer(initiatedMove);
             }
             else
@@ -103,6 +102,8 @@ namespace EnglishCheckers
                 m_Board.RemoveCoin(i_InitiatedMove.CoordinateOfJumpedOverCoin);
                 m_NextPlayer.RemovePlayersAteCoin(i_InitiatedMove.CoordinateOfJumpedOverCoin);
             }
+
+            OnMoveMade(i_InitiatedMove);
         }
 
         private eGameStatus handleTurnTransfer()
@@ -125,6 +126,7 @@ namespace EnglishCheckers
                 {
                     postMoveGameStatus = eGameStatus.NextPlayerWins;
                 }
+
                 countAndSetPoints(postMoveGameStatus);
                 OnGameIsOver(postMoveGameStatus);
             }
@@ -177,7 +179,6 @@ namespace EnglishCheckers
             Move smartMove = selectGoodMove();
 
             performMove(smartMove);
-            OnMoveMade(smartMove);
             postMoveGameStatus = checkForDoubleJumpAndHandleTurnTransfer(smartMove);
 
             return postMoveGameStatus;
@@ -347,6 +348,7 @@ namespace EnglishCheckers
 
             return isBadMove;
         }
+
         private void prioritizeByDistance(List<Move> i_Moves)
         {
             i_Moves.Sort((i_MoveA, i_MoveB) => (i_MoveB.Destination.Row - i_MoveA.Destination.Row));
@@ -507,15 +509,6 @@ namespace EnglishCheckers
             return possibleMoves;
         }
 
-        public eGameStatus CurrentPlayerQuit()
-        {
-            eGameStatus gameStatus = eGameStatus.NextPlayerWins;
-
-            countAndSetPoints(gameStatus);
-
-            return gameStatus;
-        }
-
         private void countAndSetPoints(eGameStatus i_EGameStatus)
         {
             int pointsToAdd = 0;
@@ -560,6 +553,7 @@ namespace EnglishCheckers
                 MoveMade.Invoke(i_MoveMade);
             }
         }
+
         protected virtual void OnInvalidMoveAttempted()
         {
             if (InvalidMoveAttempted != null)

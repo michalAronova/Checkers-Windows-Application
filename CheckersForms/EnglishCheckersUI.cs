@@ -1,26 +1,25 @@
-﻿using System;
-using System.Diagnostics.Eventing.Reader;
+﻿using EnglishCheckers;
+using System;
 using System.Windows.Forms;
-using EnglishCheckers;
 namespace CheckersForms
 {
     public class EnglishCheckersUI
     {
         private FormGame m_FormGame;
-        private readonly FormGameSettings m_FormGameSettings = new FormGameSettings();
+        private readonly FormGameSettings r_FormGameSettings = new FormGameSettings();
         private GameManager m_GameManger;
-        private Timer m_Timer = new Timer();
+        private readonly Timer r_Timer = new Timer();
 
         public EnglishCheckersUI()
         {
-            m_Timer.Interval = 1000;
-            m_Timer.Tick += new EventHandler(m_Timer_Tick);
+            r_Timer.Interval = 1000;
+            r_Timer.Tick += new EventHandler(m_Timer_Tick);
         }
 
         public void SetGame()
         {
-            m_FormGameSettings.ShowDialog();
-            if (m_FormGameSettings.DialogResult == DialogResult.OK)
+            r_FormGameSettings.ShowDialog();
+            if (r_FormGameSettings.DialogResult == DialogResult.OK)
             {
                 runGame();
             }
@@ -28,15 +27,16 @@ namespace CheckersForms
 
         private void m_Timer_Tick(object sender, EventArgs e)
         {
-            m_Timer.Stop();
+            r_Timer.Stop();
             m_GameManger.InitiateComputerMove();
+            handleComputerMove();
             m_FormGame.ChangeEnableToAll(true);
         }
 
         private void runGame()
         {
-            m_GameManger = new GameManager(m_FormGameSettings.BoardSize, m_FormGameSettings.IsTwoPlayerMode,
-                                           m_FormGameSettings.Player1Name, m_FormGameSettings.Player2Name);
+            m_GameManger = new GameManager(r_FormGameSettings.BoardSize, r_FormGameSettings.IsTwoPlayerMode,
+                                           r_FormGameSettings.Player1Name, r_FormGameSettings.Player2Name);
             m_FormGame = new FormGame(m_GameManger);
             m_FormGame.MoveChosen += new Action<Coordinate, Coordinate>(this.FormGame_MoveChosen);
             m_GameManger.GameIsOver += new Action<eGameStatus>(this.GameManager_GameIsOver);
@@ -47,7 +47,7 @@ namespace CheckersForms
 
         private void FormGame_MoveChosen(Coordinate i_Source, Coordinate i_Destination)
         {
-            eGameStatus gameStatusAfterMove = m_GameManger.InitiateMove(i_Source, i_Destination);
+            m_GameManger.InitiateMove(i_Source, i_Destination);
             handleComputerMove();
         }
 
@@ -118,7 +118,7 @@ namespace CheckersForms
         {
             if (!m_GameManger.ActivePlayer.IsHumanPlayer)
             {
-                m_Timer.Start();
+                r_Timer.Start();
                 m_FormGame.ChangeEnableToAll(false);
             }
         }

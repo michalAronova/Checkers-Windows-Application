@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using EnglishCheckers;
 
@@ -36,10 +31,12 @@ namespace CheckersForms
             this.labelPlayer1.Text = i_Player1Name;
             this.labelPlayer2.Text = i_Player2Name;
         }
+
         private Size calcClientSize()
         {
             int height = groupBox1.Height +  (m_ButtonSquaresBoard[0,0].Height * r_BoardSize);
             int width = m_ButtonSquaresBoard[0, 0].Width * r_BoardSize;
+
             return new Size(width + 6, height + 6);
         }
 
@@ -155,6 +152,7 @@ namespace CheckersForms
                 {
                     Coordinate source = m_buttonSquarePressed.Coordinate;
                     Coordinate destination = (sender as ButtonSquare).Coordinate;
+
                     OnMoveChosen(source, destination);
                     m_buttonSquarePressed.Checked = false;
                     (sender as ButtonSquare).Checked = false;

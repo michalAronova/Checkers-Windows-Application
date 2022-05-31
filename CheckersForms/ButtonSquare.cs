@@ -9,6 +9,7 @@ namespace CheckersForms
     {
         private readonly Coordinate r_Coordinate;
         private const int k_ButtonSquareSize = 30;
+
         public ButtonSquare(Coordinate i_Coordinate)
         {
             r_Coordinate = i_Coordinate;
@@ -34,7 +35,6 @@ namespace CheckersForms
         public ButtonSquare(IContainer container)
         {
             container.Add(this);
-
             InitializeComponent();
         }
     }
