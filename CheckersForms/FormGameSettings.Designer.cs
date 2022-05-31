@@ -162,6 +162,7 @@ namespace CheckersForms
             // 
             // FormGameSettings
             // 
+            this.AcceptButton = this.buttonDone;
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(367, 275);
