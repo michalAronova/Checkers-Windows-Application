@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace CheckersForms
+namespace EnglishCheckersUI
 {
     public partial class FormGameSettings : Form
     {

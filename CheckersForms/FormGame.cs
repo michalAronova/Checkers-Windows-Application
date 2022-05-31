@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using EnglishCheckers;
 
-namespace CheckersForms
+namespace EnglishCheckersUI
 {
     public partial class FormGame : Form
     {

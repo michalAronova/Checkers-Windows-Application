@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace CheckersForms
+namespace EnglishCheckersUI
 {
     public class Program
     {

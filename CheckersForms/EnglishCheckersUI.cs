@@ -1,7 +1,7 @@
 ﻿using EnglishCheckers;
 using System;
 using System.Windows.Forms;
-namespace CheckersForms
+namespace EnglishCheckersUI
 {
     public class EnglishCheckersUI
     {

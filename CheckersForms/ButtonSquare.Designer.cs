@@ -1,5 +1,5 @@
 ﻿
-namespace CheckersForms
+namespace EnglishCheckersUI
 {
     partial class ButtonSquare
     {
