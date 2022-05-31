@@ -97,6 +97,15 @@ namespace CheckersForms
 
         private void buttonSquare_CheckedChanged(object sender, EventArgs e)
         {
+            if((sender as ButtonSquare).Checked)
+            {
+                (sender as ButtonSquare).BackColor = Color.SkyBlue;
+            }
+            else
+            {
+                (sender as ButtonSquare).BackColor = Color.White;
+            }
+            
             if (m_buttonSquarePressed == null)
             {
                 m_buttonSquarePressed = sender as ButtonSquare;

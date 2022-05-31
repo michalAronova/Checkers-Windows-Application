@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.Eventing.Reader;
 using System.Windows.Forms;
 using EnglishCheckers;
 namespace CheckersForms
@@ -12,7 +13,7 @@ namespace CheckersForms
 
         public EnglishCheckersUI()
         {
-            m_Timer.Interval = 2000;
+            m_Timer.Interval = 1000;
             m_Timer.Tick += new EventHandler(m_Timer_Tick);
         }
 
