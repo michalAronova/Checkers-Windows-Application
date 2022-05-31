@@ -171,7 +171,7 @@ namespace EnglishCheckers
             i_Player2 = tempPlayer;
         }
 
-        public eGameStatus InitiateComputerMove(out Coordinate o_SourceCoordinate, out Coordinate o_DestinationCoordinate)
+        public eGameStatus InitiateComputerMove()
         {
             eGameStatus postMoveGameStatus;
             Move smartMove = selectGoodMove();
@@ -179,8 +179,6 @@ namespace EnglishCheckers
             performMove(smartMove);
             OnMoveMade(smartMove);
             postMoveGameStatus = checkForDoubleJumpAndHandleTurnTransfer(smartMove);
-            o_SourceCoordinate = smartMove.Source;
-            o_DestinationCoordinate = smartMove.Destination;
 
             return postMoveGameStatus;
         }

@@ -57,7 +57,42 @@ namespace CheckersForms
                     this.Controls.Add(m_ButtonSquaresBoard[i,j]);
                 }
             }
+
+            colorTheBoard();
             UpdateFormGameBoard(i_GameBoard);
+        }
+
+        public void ChangeEnableToAll(bool i_Enable)
+        {
+            for(int i = 0; i < r_BoardSize; i++)
+            {
+                for(int j = 0; j < r_BoardSize; j++)
+                {
+                    if ((i + j) % 2 != 0)
+                    {
+                        m_ButtonSquaresBoard[i, j].Enabled = i_Enable;
+                    }
+                }
+            }
+        }
+
+        private void colorTheBoard()
+        {
+            for (int i = 0; i < r_BoardSize; i++)
+            {
+                for (int j = 0; j < r_BoardSize; j++)
+                {
+                    if ((i + j) % 2 != 0)
+                    {
+                        m_ButtonSquaresBoard[i, j].BackColor = Color.SandyBrown;
+                    }
+                    else
+                    {
+                        m_ButtonSquaresBoard[i, j].BackColor = Color.SaddleBrown;
+
+                    }
+                }
+            }
         }
 
         public void UpdateFormGameBoard(Board i_GameBoard)
@@ -99,11 +134,11 @@ namespace CheckersForms
         {
             if((sender as ButtonSquare).Checked)
             {
-                (sender as ButtonSquare).BackColor = Color.SkyBlue;
+                (sender as ButtonSquare).BackColor = Color.DodgerBlue;
             }
             else
             {
-                (sender as ButtonSquare).BackColor = Color.White;
+                (sender as ButtonSquare).BackColor = Color.SandyBrown;
             }
             
             if (m_buttonSquarePressed == null)

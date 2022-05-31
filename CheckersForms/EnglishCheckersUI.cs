@@ -28,8 +28,9 @@ namespace CheckersForms
 
         private void m_Timer_Tick(object sender, EventArgs e)
         {
-            handleComputerMove();
             m_Timer.Stop();
+            m_GameManger.InitiateComputerMove();
+            m_FormGame.ChangeEnableToAll(true);
         }
 
         private void runGame()
@@ -47,7 +48,7 @@ namespace CheckersForms
         private void FormGame_MoveChosen(Coordinate i_Source, Coordinate i_Destination)
         {
             eGameStatus gameStatusAfterMove = m_GameManger.InitiateMove(i_Source, i_Destination);
-            m_Timer.Start();
+            handleComputerMove();
         }
 
         private void GameManager_MoveMade(Move i_MoveMade)
@@ -117,9 +118,8 @@ namespace CheckersForms
         {
             if (!m_GameManger.ActivePlayer.IsHumanPlayer)
             {
-                Coordinate source;
-                Coordinate destination;
-                m_GameManger.InitiateComputerMove(out source, out destination);
+                m_Timer.Start();
+                m_FormGame.ChangeEnableToAll(false);
             }
         }
     }
